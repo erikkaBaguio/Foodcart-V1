@@ -26,3 +26,21 @@ create or replace function new_location(par_address VARCHAR)
 		END;
 	$$
 		language 'plpgsql';
+
+create or replace function new_role(par_rname)
+	returns text as
+	$$
+		DECLARE
+			loc_res TEXT;
+		BEGIN
+			if par_rname = '' THEN
+				loc_res = 'Error';
+			ELSE
+				INSERT INTO	Roles(role_name) VALUES (par_rname);
+
+				loc_res = 'Role Added!'
+			END IF;
+			RETURN loc_res;
+		END;
+	$$
+		language 'plpgsql';
