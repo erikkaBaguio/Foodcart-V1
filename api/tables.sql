@@ -1,18 +1,15 @@
-create table Categories
+CREATE TABLE Category
 (
 	id           	SERIAL8 PRIMARY KEY,
 	category_name	TEXT NOT NULL,
 	is_active       BOOLEAN DEFAULT TRUE
 );
 
-
-create table Restaurants 
+CREATE TABLE Restaurant
 (
 	id           	SERIAL8 PRIMARY KEY,
 	resto_name 		TEXT NOT NULL,
-	location		TEXT,
 	min_order		FLOAT,
-	del_fee			FLOAT,
- 	resto_categories INT REFERENCES Categories (id),
+	delivery_fee	FLOAT,
   	is_active       BOOLEAN DEFAULT TRUE
 );
