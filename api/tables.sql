@@ -14,34 +14,41 @@ CREATE TABLE Restaurant
   	is_active       BOOLEAN DEFAULT TRUE
 );
 
-
-create table Location
-(
-	id				SERIAL8 PRIMARY KEY,
-	address			VARCHAR(50), NOT NULL
+CREATE TABLE Food
+(	id				SERIAL8 PRIMARY KEY,
+	food_name		TEXT NOT NULL,
+	description		TEXT NOT NULL,
+	unit_cost		FLOAT,
+	is_active		BOOLEAN DEFAULT TRUE
 );
 
-create table Roles
+CREATE TABLE Location
+(
+	id				SERIAL8 UNIQUE NOT NULL PRIMARY KEY,
+	location_name	TEXT NOT NULL
+);
+
+CREATE TABLE Roles
 (
 	id 				SERIAL8 PRIMARY KEY,
-	role_name		VARCHAR(25),
+	role_name		TEXT NOT NULL
 );
 
-create table User
+CREATE TABLE Userinfo
 (
 	id				SERIAL8 PRIMARY KEY,
 	fname			TEXT,
 	mname			TEXT,
 	lname			TEXT,
-	address			VARCHAR(100) NOT NULL,
-	email			VARCHAR(50),
+	address			TEXT NOT NULL,
+	email			TEXT,
 	mobile_number	INT,
 	password		VARCHAR(50),
 	role_id			INT REFERENCES Roles(id),
 	earned_points	INT
 );
 
-create table Order
+CREATE TABLE Orders
 (
 	id 					SERIAL8 PRIMARY KEY,
 	role_id				INT REFERENCES Roles(id),
@@ -49,14 +56,37 @@ create table Order
 	transaction_date	DATE,
 	time_stamp			TIMESTAMP,
 	transaction_status	VARCHAR(50),
-	total				VARCHAR(50)
+	total				FLOAT
 );
 
-create table Transaction
+CREATE TABLE Transaction
 (
 	id 					SERIAL8 PRIMARY KEY,
 	transaction_number	VARCHAR(20),
 	transaction_date	DATE,
-	order 				INT REFERENCES Order(id),
+	order_id 			INT REFERENCES Orders(id),
 	is_active			BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE Food_category
+(
+	id           	SERIAL8 PRIMARY KEY,
+	food_id			INT REFERENCES Food(id),
+	category_id		INT REFERENCES Category(id)
+);
+
+CREATE TABLE Restaurant_location
+(
+	id				SERIAL8 PRIMARY KEY,
+	restaurant_id	INT REFERENCES Restaurant(id),
+	location_id 	INT REFERENCES Location(id)
+);
+
+CREATE TABLE Order_foods
+(
+	id 				SERIAL8 PRIMARY KEY,
+	order_id		INT REFERENCES Orders(id),
+	food_id			INT REFERENCES Food(id),
+	quantity		INT,
+	total_cost		FLOAT
 );
