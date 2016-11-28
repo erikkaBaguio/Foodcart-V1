@@ -11,6 +11,7 @@ CREATE TABLE Restaurant
 	resto_name 		TEXT NOT NULL,
 	min_order		FLOAT,
 	delivery_fee	FLOAT,
+	location 		TEXT NOT NULL,
   	is_active       BOOLEAN DEFAULT TRUE
 );
 
@@ -20,12 +21,6 @@ CREATE TABLE Food
 	description		TEXT NOT NULL,
 	unit_cost		FLOAT,
 	is_active		BOOLEAN DEFAULT TRUE
-);
-
-CREATE TABLE Location
-(
-	id				SERIAL8 UNIQUE NOT NULL PRIMARY KEY,
-	location_name	TEXT NOT NULL
 );
 
 CREATE TABLE Roles
@@ -73,13 +68,6 @@ CREATE TABLE Food_category
 	id           	SERIAL8 PRIMARY KEY,
 	food_id			INT REFERENCES Food(id),
 	category_id		INT REFERENCES Category(id)
-);
-
-CREATE TABLE Restaurant_location
-(
-	id				SERIAL8 PRIMARY KEY,
-	restaurant_id	INT REFERENCES Restaurant(id),
-	location_id 	INT REFERENCES Location(id)
 );
 
 CREATE TABLE Order_foods
