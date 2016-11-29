@@ -40,6 +40,15 @@ create or replace function get_location(OUT INT, OUT VARCHAR)
 
 
 
+create or replace function show_location(IN par_id, OUT VARCHAR)
+	RETURNS SETOF RECORD as
+	$$
+		SELECT location_name FROM Location WHERE id = par_id;
+	$$
+		language 'sql';
+
+
+
 create or replace function store_role(par_rname VARCHAR)
 	returns text as
 	$$
