@@ -11,7 +11,7 @@ create or replace function show_restaurant(in par_restoID int, out bigint, out t
 
 
 
-create or replace function new_location(par_locname TEXT)
+create or replace function store_location(par_locname VARCHAR)
 	returns TEXT as
 	$$
 		DECLARE
@@ -31,7 +31,7 @@ create or replace function new_location(par_locname TEXT)
 
 
 
-create or replace function new_role(par_rname TEXT)
+create or replace function new_role(par_rname VARCHAR)
 	returns text as
 	$$
 		DECLARE
@@ -51,7 +51,7 @@ create or replace function new_role(par_rname TEXT)
 
 
 
-create or replace function store(par_fname TEXT, par_mname TEXT, par_lname TEXT, par_address TEXT, par_email TEXT,
+create or replace function store_user(par_fname VARCHAR, par_mname VARCHAR, par_lname VARCHAR, par_address VARCHAR, par_email VARCHAR,
 									 par_mobileNum INT, par_password VARCHAR, par_roleID INT, par_points INT)
 	returns text as
 	$$
@@ -74,7 +74,7 @@ create or replace function store(par_fname TEXT, par_mname TEXT, par_lname TEXT,
 
 
 
-create or replace function get(OUT INT, OUT TEXT, OUT TEXT, OUT TEXT, OUT TEXT, OUT TEXT, OUT INT, OUT VARCHAR, OUT INT, OUT INT)
+create or replace function get_user(OUT INT, OUT VARCHAR, OUT VARCHAR, OUT VARCHAR, OUT VARCHAR, OUT VARCHAR, OUT INT, OUT VARCHAR, OUT INT, OUT INT)
 	RETURNS SETOF RECORD as
 	$$
 		SELECT id, fname, mname, lname, address, email, mobile_number, password, role_id, earned_points FROM Userinfo;
@@ -83,9 +83,30 @@ create or replace function get(OUT INT, OUT TEXT, OUT TEXT, OUT TEXT, OUT TEXT, 
 
 
 
-create or replace function show(in par_id INT, OUT TEXT, OUT TEXT, OUT TEXT, OUT TEXT, OUT INT, OUT VARCHAR, OUT INT, OUT INT)
+create or replace function show_user(in par_id INT, OUT VARCHAR, OUT VARCHAR, OUT VARCHAR, OUT VARCHAR, OUT INT, OUT VARCHAR, OUT INT, OUT INT)
 	RETURNS SETOF RECORD as
 	$$
 		SELECT fname, mname, lname, address, email, mobile_number, password, role_id, earned_points FROM Userinfo WHERE id = par_id;
+	$$
+		language 'sql';
+
+
+
+create or replace function update_user(in par_id INT, par_fname VARCHAR, par_mname VARCHAR, par_lname VARCHAR, par_address VARCHAR, 
+										par_email VARCHAR, par_mobileNum INT, par_password VARCHAR, par_roleID INT, par_points INT)
+	RETURNS VOID as
+	$$
+		UPDATE Userinfo
+		SET
+			fname = par_fname,
+			mname = par_mname,
+			lname = par_lname,
+			address = par_address,
+			email = par_email,
+			mobile_number = par_mobileNum,
+			password = par_password,
+			role_id = par_roleID,
+			earned_points = par_points
+		WHERE id = par_id;
 	$$
 		language 'sql';
