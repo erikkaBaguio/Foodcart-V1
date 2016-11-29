@@ -81,6 +81,15 @@ create or replace function store_role(par_rname VARCHAR)
 
 
 
+create or replace function get_role(OUT INT, OUT VARCHAR)
+	RETURNS SETOF RECORD as
+	$$
+		SELECT id, role_name FROM Roles;
+	$$
+		language 'sql';
+
+
+
 create or replace function store_user(par_fname VARCHAR, par_mname VARCHAR, par_lname VARCHAR, par_address VARCHAR, par_email VARCHAR,
 									 par_mobileNum INT, par_password VARCHAR, par_roleID INT, par_points INT)
 	returns text as
