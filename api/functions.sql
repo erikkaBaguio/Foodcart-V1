@@ -49,6 +49,18 @@ create or replace function show_location(IN par_id, OUT VARCHAR)
 
 
 
+create or replace function update_location(in par_id INT, par_locname VARCHAR)
+	RETURNS VOID as
+	$$
+		UPDATE Location
+		SET
+			location_name = par_locname
+		WHERE id = par_id;
+	$$
+		language 'sql';		
+
+
+
 create or replace function store_role(par_rname VARCHAR)
 	returns text as
 	$$
