@@ -9,7 +9,9 @@ create or replace function show_restaurant(in par_restoID int, out bigint, out t
 	$$
 	language 'sql';
 
-create or replace function new_location(par_address VARCHAR)
+
+
+create or replace function new_location(par_locname TEXT)
 	returns TEXT as
 	$$
 		DECLARE
@@ -18,7 +20,7 @@ create or replace function new_location(par_address VARCHAR)
 			if par_address = '' THEN
 				loc_res = 'Error';
 			ELSE
-				INSERT INTO Location(address) VALUES (par_address);
+				INSERT INTO Location(location_name) VALUES (par_locname);
 
 				loc_res = 'Location Added!'
 			END IF;
@@ -27,7 +29,9 @@ create or replace function new_location(par_address VARCHAR)
 	$$
 		language 'plpgsql';
 
-create or replace function new_role(par_rname VARCHAR)
+
+
+create or replace function new_role(par_rname TEXT)
 	returns text as
 	$$
 		DECLARE
@@ -45,7 +49,9 @@ create or replace function new_role(par_rname VARCHAR)
 	$$
 		language 'plpgsql';
 
-create or replace function new_user(par_fname TEXT, par_mname TEXT, par_lname TEXT, par_address VARCHAR, par_email VARCHAR,
+
+
+create or replace function store(par_fname TEXT, par_mname TEXT, par_lname TEXT, par_address VARCHAR, par_email VARCHAR,
 									 par_mobileNum INT, par_password VARCHAR, par_roleID INT, par_points INT)
 	returns text as
 	$$
@@ -65,3 +71,6 @@ create or replace function new_user(par_fname TEXT, par_mname TEXT, par_lname TE
 		END;
 	$$
 		language 'plpgsql';
+
+
+create or replace function get(OUT TEXT, OUT TEXT, OUT TEXT, OUT VARCHAR, OUT VARCHAR)
