@@ -73,9 +73,19 @@ create or replace function store(par_fname TEXT, par_mname TEXT, par_lname TEXT,
 		language 'plpgsql';
 
 
+
 create or replace function get(OUT INT, OUT TEXT, OUT TEXT, OUT TEXT, OUT TEXT, OUT TEXT, OUT INT, OUT VARCHAR, OUT INT, OUT INT)
 	RETURNS SETOF RECORD as
 	$$
 		SELECT id, fname, mname, lname, address, email, mobile_number, password, role_id, earned_points FROM Userinfo;
+	$$
+		language 'sql';
+
+
+
+create or replace function show(in par_id INT, OUT TEXT, OUT TEXT, OUT TEXT, OUT TEXT, OUT INT, OUT VARCHAR, OUT INT, OUT INT)
+	RETURNS SETOF RECORD as
+	$$
+		SELECT fname, mname, lname, address, email, mobile_number, password, role_id, earned_points FROM Userinfo WHERE id = par_id;
 	$$
 		language 'sql';
