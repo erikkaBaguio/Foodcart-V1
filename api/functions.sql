@@ -24,3 +24,24 @@ create or replace function show_allrestaurants(out bigint, out text, out float, 
 	$$
 	language 'sql';
 
+
+--[POST] Insert Restaurant info
+--select store_restaurant('Frappella' ,50,0, 'San Miguel, Iligan City');
+create or replace function store_restaurant(in par_restoName text, in par_minOrder float, in par_deliveryFee float, in par_location text)
+	returns text as 
+	$$
+		declare
+			local_response text;
+		begin
+
+			insert into Restaurant(resto_name, min_order, delivery_fee, location)
+				values (par_restoName, par_minOrder, par_deliveryFee, par_location);
+			
+			local_response = 'OK';
+			return local_response;
+
+		end
+	$$
+	language 'plpgsql';
+
+
