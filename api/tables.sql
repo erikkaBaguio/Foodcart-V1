@@ -20,31 +20,31 @@ create table Restaurants
 
 create table Location
 (
-	id				SERIAL8 PRIMARY KEY,
-	address			VARCHAR(50), NOT NULL
+	id						SERIAL8 UNIQUE NOT NULL PRIMARY KEY,
+	location_name			TEXT NOT NULL
 );
 
 create table Roles
 (
 	id 				SERIAL8 PRIMARY KEY,
-	role_name		VARCHAR(25),
+	role_name		TEXT NOT NULL
 );
 
-create table User
+create table Userinfo
 (
 	id				SERIAL8 PRIMARY KEY,
 	fname			TEXT,
 	mname			TEXT,
 	lname			TEXT,
-	address			VARCHAR(100) NOT NULL,
-	email			VARCHAR(50),
+	address			TEXT NOT NULL,
+	email			TEXT,
 	mobile_number	INT,
 	password		VARCHAR(50),
 	role_id			INT REFERENCES Roles(id),
 	earned_points	INT
 );
 
-create table Order
+create table Orders
 (
 	id 					SERIAL8 PRIMARY KEY,
 	role_id				INT REFERENCES Roles(id),
@@ -52,7 +52,7 @@ create table Order
 	transaction_date	DATE,
 	time_stamp			TIMESTAMP,
 	transaction_status	VARCHAR(50),
-	total				VARCHAR(50)
+	total				FLOAT
 );
 
 create table Transaction
@@ -60,6 +60,6 @@ create table Transaction
 	id 					SERIAL8 PRIMARY KEY,
 	transaction_number	VARCHAR(20),
 	transaction_date	DATE,
-	order 				INT REFERENCES Order(id),
+	order 				INT REFERENCES Orders(id),
 	is_active			BOOLEAN DEFAULT FALSE
 );
