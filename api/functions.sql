@@ -89,6 +89,14 @@ create or replace function get_role(OUT INT, OUT VARCHAR)
 		language 'sql';
 
 
+create or replace function show_role(in par_id, OUT VARCHAR)
+	RETURNS SETOF RECORD as
+	$$
+		SELECT role_name FROM Roles WHERE id = par_id;
+	$$
+		language 'sql';
+
+
 
 create or replace function store_user(par_fname VARCHAR, par_mname VARCHAR, par_lname VARCHAR, par_address VARCHAR, par_email VARCHAR,
 									 par_mobileNum INT, par_password VARCHAR, par_roleID INT, par_points INT)
