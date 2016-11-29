@@ -51,7 +51,7 @@ create or replace function new_role(par_rname TEXT)
 
 
 
-create or replace function store(par_fname TEXT, par_mname TEXT, par_lname TEXT, par_address VARCHAR, par_email VARCHAR,
+create or replace function store(par_fname TEXT, par_mname TEXT, par_lname TEXT, par_address TEXT, par_email TEXT,
 									 par_mobileNum INT, par_password VARCHAR, par_roleID INT, par_points INT)
 	returns text as
 	$$
@@ -73,4 +73,9 @@ create or replace function store(par_fname TEXT, par_mname TEXT, par_lname TEXT,
 		language 'plpgsql';
 
 
-create or replace function get(OUT TEXT, OUT TEXT, OUT TEXT, OUT VARCHAR, OUT VARCHAR)
+create or replace function get(OUT INT, OUT TEXT, OUT TEXT, OUT TEXT, OUT TEXT, OUT TEXT, OUT INT, OUT VARCHAR, OUT INT, OUT INT)
+	RETURNS SETOF RECORD as
+	$$
+		SELECT id, fname, mname, lname, address, email, mobile_number, password, role_id, earned_points FROM Userinfo;
+	$$
+		language 'sql';
