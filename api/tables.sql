@@ -21,23 +21,23 @@ create table Restaurants
 create table Location
 (
 	id						SERIAL8 UNIQUE NOT NULL PRIMARY KEY,
-	location_name			TEXT NOT NULL
+	location_name			VARCHAR(50) NOT NULL
 );
 
 create table Roles
 (
 	id 				SERIAL8 PRIMARY KEY,
-	role_name		TEXT NOT NULL
+	role_name		VARCHAR(30) NOT NULL
 );
 
 create table Userinfo
 (
 	id				SERIAL8 PRIMARY KEY,
-	fname			TEXT,
-	mname			TEXT,
-	lname			TEXT,
-	address			TEXT NOT NULL,
-	email			TEXT,
+	fname			VARCHAR(50),
+	mname			VARCHAR(50),
+	lname			VARCHAR(50),
+	address			VARCHAR(100) NOT NULL,
+	email			VARCHAR(50),
 	mobile_number	INT,
 	password		VARCHAR(50),
 	role_id			INT REFERENCES Roles(id),
