@@ -31,7 +31,16 @@ create or replace function store_location(par_locname VARCHAR)
 
 
 
-create or replace function new_role(par_rname VARCHAR)
+create or replace function get_location(OUT INT, OUT VARCHAR)
+	RETURNS SETOF RECORD as
+	$$
+		SELECT id, location_name FROM Location;
+	$$
+		language 'sql';
+
+
+
+create or replace function store_role(par_rname VARCHAR)
 	returns text as
 	$$
 		DECLARE
